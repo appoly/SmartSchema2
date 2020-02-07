@@ -21,3 +21,14 @@ View the VueJS package here https://github.com/appoly/smartschema-vue
 This will read your database tables and generate constants files with the schema required for the Vue package. This will give you a quick and easy start and can be modified in anyway
 
 NOTE: running the command again will overwrite any changes
+
+## Usage
+
+```php
+public function index()
+    {
+        $schema = json_encode(UserSchema::SCHEMA);
+
+        return view('home', compact('schema'));
+    }
+```
