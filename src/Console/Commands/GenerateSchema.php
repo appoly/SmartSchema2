@@ -142,6 +142,9 @@ class ' . $modelClassName . 'Schema
         if ($type == 'text') {
             return 'Textarea';
         }
+        if ($type == 'boolean') {
+            return 'Checkbox';
+        }
     }
 
     public function getValidation($name, $max, $nullable)
