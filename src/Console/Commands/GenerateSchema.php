@@ -98,7 +98,6 @@ class ' . $modelClassName . 'Schema
         $fieldsToSkip = ['id', 'created_at', 'updated_at', 'email_verified_at', 'remember_token'];
 
         if (empty($columns)) {
-            $this->info("This model has no columns... skipping");
             return;
         }
 
@@ -117,7 +116,7 @@ class ' . $modelClassName . 'Schema
                     'type' => $this->getType($type[0], $column['name']),
                     'validationRules' => $this->getValidation($column['name'], $max, $column['null']),
                     'label' => Str::title(str_replace('_', ' ', $column['name'])),
-                    'placeholder' => 'Enter ' . Str::title(str_replace('_', ' ', $column['name'])),
+                    'placeholder' => $this->getPlaceholder($column['name'], $column['type']),
                 ];
             }
         }
@@ -127,6 +126,9 @@ class ' . $modelClassName . 'Schema
 
     public function getType($type, $name)
     {
+        if (strpos($name, 'image') || strpos($name, 'logo')) {
+            return 'File';
+        }
         if ($name == 'password' || $name == "Password") {
             return 'Password';
         }
@@ -173,7 +175,7 @@ class ' . $modelClassName . 'Schema
         }
         return $string;
     }
-    function var_export_short($data, $return = true)
+    public function var_export_short($data, $return = true)
     {
         $dump = var_export($data, true);
 
@@ -193,5 +195,16 @@ class ' . $modelClassName . 'Schema
         } else {
             echo $dump;
         }
+    }
+
+    public function getPlaceholder($name, $type)
+    {
+        if (strpos($name, 'image') || strpos($name, 'logo')) {
+            return 'Upload ' . Str::title(str_replace('_', ' ', $name));
+        }
+        if ($type == 'boolean') {
+            return 'Is this a  ' . Str::title(str_replace('_', ' ', $name)) . "?";
+        }
+        return 'Enter ' . Str::title(str_replace('_', ' ', $name));
     }
 }
