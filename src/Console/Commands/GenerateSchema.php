@@ -115,7 +115,7 @@ class ' . $modelClassName . 'Schema
                     'name' => $column['name'],
                     'type' => $this->getType($type[0], $column['name']),
                     'validationRules' => $this->getValidation($column['name'], $max, $column['null']),
-                    'label' => Str::title(str_replace('_', ' ', $column['name'])),
+                    'label' => $this->getLabel($column['name'], $column['type']),
                     'placeholder' => $this->getPlaceholder($column['name'], $column['type']),
                 ];
             }
@@ -203,8 +203,16 @@ class ' . $modelClassName . 'Schema
             return 'Upload ' . Str::title(str_replace('_', ' ', $name));
         }
         if ($type == 'boolean') {
-            return 'Is this a  ' . Str::title(str_replace('_', ' ', $name)) . "?";
+            return "";
         }
         return 'Enter ' . Str::title(str_replace('_', ' ', $name));
+    }
+
+    public function getLabel($name, $type)
+    {
+        if ($type == 'boolean') {
+            return 'Is this a  ' . Str::title(str_replace('_', ' ', $name)) . "?";
+        }
+        return Str::title(str_replace('_', ' ', $name));
     }
 }
