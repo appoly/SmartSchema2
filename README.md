@@ -26,9 +26,9 @@ NOTE: running the command again will overwrite any changes
 
 ```php
 public function index()
-    {
-        $schema = json_encode(UserSchema::SCHEMA);
+{
+    $schema = json_encode(UserSchema::SCHEMA);
 
-        return view('home', compact('schema'));
-    }
+    return view('home', compact('schema'));
+}
 ```
